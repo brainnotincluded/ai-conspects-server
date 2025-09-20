@@ -85,6 +85,15 @@ async def get_current_user(
     
     return user
 
+@router.get("/generate-device-id")
+async def generate_device_id():
+    """Generate a unique device ID for new devices"""
+    device_id = f"device_{uuid.uuid4().hex[:12]}"
+    return {
+        "device_id": device_id,
+        "instructions": "Use this device_id for registration. Store it securely on the device."
+    }
+
 @router.post("/register", response_model=AuthResponse)
 async def register_device(
     request: DeviceRegistration,
